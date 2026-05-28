@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Cup 2026 Sweepstake - OX Tools Edition</title>
+    <style>
+        :root {
+            --bg-main: #060a12;
+            --panel-bg: #0c1222;
+            --field-bg: #04070d;
+            --ox-cyan: #00AEEF;
+            --ox-glow: #00E5FF;
+            --text-light: #FFFFFF;
+            --text-dark: #8294b0;
+            --accent-border: #1a263f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: linear-gradient(rgba(0, 174, 239, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 174, 239, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-light);
+            font-family: 'Montserrat', 'Arial Black', sans-serif;
+            padding: 25px;
+            min-width: 1600px;
+        }
+
+        /* --- LOGO AND TOP HEADER SECTION --- */
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .ox-brand-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 6px 20px;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.8rem;
+            border: 3px solid var(--ox-cyan);
+            box-shadow: 0 0 15px var(--ox-cyan);
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .ox-brand-badge span {
+            color: var(--ox-cyan);
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .slogan-banner {
+            font-size: 1rem;
+            letter-spacing: 10px;
+            color: var(--text-dark);
+            font-style: italic;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* --- GRID CONTAINER FOR THREE VERTICAL PANELS --- */
+        .dashboard-wrapper {
+            display: grid;
+            grid-template-columns: 340px 1fr 340px;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* --- GROUPS STAGES SCROLL PANELS (LEFT & RIGHT) --- */
+        .side-groups-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .group-card {
+            background-color: var(--panel-bg);
+            border: 2px solid var(--accent-border);
+            border-radius: 6px;
+            padding: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .group-card:hover {
+            border-color: var(--ox-cyan);
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--ox-cyan);
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        .group-name {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--ox-cyan);
+        }
+
+        .matrix-labels {
+            display: flex;
+            gap: 5px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.7rem;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        .matrix-labels span {
+            width: 24px;
+            text-align: center;
+        }
+
+        .team-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .team-identity {
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stat-inputs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .stat-inputs input {
+            width: 24px;
+            height: 22px;
+            background-color: var(--field-bg);
+            border: 1px solid var(--accent-border);
+            color: var(--text-light);
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+
+        .stat-inputs input:focus {
+            border-color: var(--ox-cyan);
+            outline: none;
+        }
+
+        /* --- THE KNOCKOUT BRACKET (CENTER SPACE) --- */
+        .bracket-center-canvas {
+            display: grid;
+            grid-template-columns: 140px 140px 1fr 140px 140px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .bracket-tier-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 1000px;
+        }
+
+        /* --- MATCH NODES DESIGN --- */
+        .match-block {
+            background-color: var(--field-bg);
+            border: 1px solid var(--accent-border);
+            border-left: 3px solid var(--ox-cyan);
+            border-radius: 4px;
+            padding: 6px;
+            width: 100%;
+        }
+
+        .match-header-info {
+            color: var(--ox-cyan);
+            font-size: 0.65rem;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .competitor-slot {
+            background-color: rgba(26, 38, 63, 0.4);
+            height: 22px;
+            margin-bottom: 3px;
+            border-radius: 2px;
+            padding: 0 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .competitor-slot:last-child {
+            margin-bottom: 0;
+        }
+
+        .competitor-slot input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.75rem;
+            outline: none;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* --- BRACKET INTERIOR GRAND CHAMPION DISPLAY --- */
+        .finals-apex-hub {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .apex-trophy {
+            font-size: 5rem;
+            animation: pulse Glow 2s infinite alternate;
+            filter: drop-shadow(0 0 15px var(--ox-glow));
+        }
+
+        .championship-showcase-box {
+            width: 240px;
+            border: 2px solid var(--ox-cyan);
+            box-shadow: 0 0 20px rgba(0, 174, 239, 0.4);
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .championship-showcase-box .match-header-info {
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .championship-showcase-box .competitor-slot {
+            height: 32px;
+            margin-top: 6px;
+        }
+
+        .championship-showcase-box .competitor-slot input {
+            font-size: 0.95rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER BANNER METRICS --- */
+        footer {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--accent-border);
+            padding: 18px;
+            border-radius: 6px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .footer-metric-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.85rem;
+        }
+
+        .footer-metric-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: var(--ox-cyan);
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="ox-brand-badge">OX <span>TOOLS</span></div>
+        <h1 class="main-title">World Cup 2026 Sweepstake</h1>
+        <div class="slogan-banner">Unleash The Power</div>
+    </header>
+
+    <div class="dashboard-wrapper">
+        
+        <div class="side-groups-container">
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-name">Group A</div>
+                    <div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div>
+                </div>
+                <div class="team-row"><div class="team-identity">🇲🇽 Mexico</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇿🇦 South Africa</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇰🇷 South Korea</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇿 Czechia</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group B</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇦 Canada</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇧🇦 Bosnia & Herz.</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇶🇦 Qatar</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇭 Switzerland</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group C</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇧🇷 Brazil</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇲🇦 Morocco</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇲🇭 Haiti</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group D</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇺🇸 USA</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇵🇾 Paraguay</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇦🇺 Australia</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇹🇷 Türkiye</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group E</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇩🇪 Germany</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇼 Curaçao</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇮 Côte d'Ivoire</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇪🇨 Ecuador</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group F</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇳🇱 Netherlands</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇯🇵 Japan</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇸🇪 Sweden</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇹🇳 Tunisia</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+        </div>
+
+        <div class="bracket-center-canvas">
+            
+            <div class="bracket-tier-column">
+                <div class="match-block"><div class="match-header-info">Match 73</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 74</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 75</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 76</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 77</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 78</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 79</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 80</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+            </div>
+
+            <div class="bracket-tier-column">
+                <div class="match-block" style="margin-top: 50px;"><div class="match-header-info">Match 89</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block" style="margin-top: 100px;"><div class="match-header-info">Match 90</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block" style="margin-top: 100px;"><div class="match-header-info">Match 91</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block" style="margin-top: 50px;"><div class="match-header-info">Match 92</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+            </div>
+
+            <div class="finals-apex-hub">
+                <div class="apex-trophy">🏆</div>
+                <div class="championship-showcase-box">
+                    <div class="match-header-info">THE GRAND FINAL</div>
+                    <div style="font-size: 0.7rem; color: var(--text-dark); text-transform: uppercase;">19 Jul • New York / NJ</div>
+                    <div class="competitor-slot"><input type="text" placeholder="WEST CHAMPION"></div>
+                    <div class="competitor-slot"><input type="text" placeholder="EAST CHAMPION"></div>
+                </div>
+                <div class="championship-showcase-box" style="border-color: #243556; box-shadow: none; background: #070c16;">
+                    <div class="match-header-info" style="font-size: 0.9rem; color: var(--text-dark);">3RD PLACE MATCH</div>
+                    <div class="competitor-slot"><input type="text"></div>
+                    <div class="competitor-slot"><input type="text"></div>
+                </div>
+            </div>
+
+            <div class="bracket-tier-column">
+                <div class="match-block" style="margin-top: 50px;"><div class="match-header-info">Match 93</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block" style="margin-top: 100px;"><div class="match-header-info">Match 94</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block" style="margin-top: 100px;"><div class="match-header-info">Match 95</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block" style="margin-top: 50px;"><div class="match-header-info">Match 96</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+            </div>
+
+            <div class="bracket-tier-column">
+                <div class="match-block"><div class="match-header-info">Match 81</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 82</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 83</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 84</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 85</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 86</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 87</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+                <div class="match-block"><div class="match-header-info">Match 88</div><div class="competitor-slot"><input type="text"></div><div class="competitor-slot"><input type="text"></div></div>
+            </div>
+
+        </div>
+
+        <div class="side-groups-container">
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group G</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇧🇪 Belgium</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇪🇬 Egypt</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇮🇷 IR Iran</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇳🇿 New Zealand</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group H</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇪🇸 Spain</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇻 Cabo Verde</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇸🇦 Saudi Arabia</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇺🇾 Uruguay</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group I</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇫🇷 France</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇸🇳 Senegal</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇮🇶 Iraq</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇳🇴 Norway</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group J</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇦🇷 Argentina</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇩🇿 Algeria</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇦🇹 Austria</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇯🇴 Jordan</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group K</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🇵🇹 Portugal</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇩 Congo DR</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇺🇿 Uzbekistan</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇨🇴 Colombia</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+            <div class="group-card">
+                <div class="group-header"><div class="group-name">Group L</div><div class="matrix-labels"><span>P</span><span>W</span><span>D</span><span>L</span><span>PTS</span></div></div>
+                <div class="team-row"><div class="team-identity">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇭🇷 Croatia</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇬🇭 Ghana</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+                <div class="team-row"><div class="team-identity">🇵🇦 Panama</div><div class="stat-inputs"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-metric-card">
+            <span style="font-size: 1.8rem; color: var(--ox-cyan);">🛠️</span>
+            <div>
+                <h4>OX Tournament Specs</h4>
+                <p style="color: var(--text-dark); font-size: 0.8rem;">High stability grid framework layout designed for tough competitive Tracking.</p>
+            </div>
+        </div>
+        <div class="footer-metric-card">
+            <span style="font-size: 1.8rem; color: var(--ox-cyan);">📈</span>
+            <div>
+                <h4>Scoring System</h4>
+                <p style="color: var(--text-dark); font-size: 0.8rem;">Win = 3 PTS | Draw = 1 PTS. Fill values manually to advance qualifiers.</p>
+            </div>
+        </div>
+        <div class="footer-metric-card">
+            <span style="font-size: 1.8rem; color: var(--ox-cyan);">⚡</span>
+            <div>
+                <h4>Live Administration</h4>
+                <p style="color: var(--text-dark); font-size: 0.8rem;">Ideal for casting onto warehouse smart screens, office displays, or printing.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
